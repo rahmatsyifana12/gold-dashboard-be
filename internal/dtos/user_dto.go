@@ -7,16 +7,15 @@ type GetUserByIDResponse struct {
 }
 
 type CreateUserRequest struct {
-	Username	string	`json:"username" validate:"required"`
-	Password	string	`json:"password" validate:"required"`
-	FullName	string	`json:"full_name"`
-	PhoneNumber	string	`json:"phone_number"`
+	Email    string `json:"email" validate:"required,email"`
+	Password string `json:"password" validate:"required,min=8"`
+	Name     string `json:"name" validate:"omitempty,min=2"`
 }
 
 type UpdateUserParams struct {
-	ID			uint	`param:"id" validate:"required"`
-	FullName	string	`json:"full_name"`
-	PhoneNumber	string	`json:"phone_number"`
+	ID          uint   `param:"id" validate:"required"`
+	FullName    string `json:"full_name"`
+	PhoneNumber string `json:"phone_number"`
 }
 
 type UserIDParams struct {

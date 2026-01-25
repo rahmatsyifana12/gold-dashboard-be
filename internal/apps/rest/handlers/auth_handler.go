@@ -41,6 +41,14 @@ func (t *AuthHandlerImpl) Login(c echo.Context) (err error) {
 			SendErrorResponse(c)
 	}
 
+	if err = c.Validate(&params); err != nil {
+		return responses.NewError().
+			WithError(err).
+			WithCode(http.StatusBadRequest).
+			WithMessage("Validation error").
+			SendErrorResponse(c)
+	}
+
 	res, err := t.usecase.Auth.Login(ctx, params)
 	return responses.New().
 		WithError(err).

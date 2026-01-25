@@ -12,7 +12,7 @@ import (
 type UserRepository interface {
 	CreateUser(ctx context.Context, user models.User) (err error)
 	GetUserByID(ctx context.Context, userID uint) (user *models.User, err error)
-	GetUserByUsername(ctx context.Context, username string) (user *models.User, err error)
+	GetUserByEmail(ctx context.Context, email string) (user *models.User, err error)
 	UpdateUser(ctx context.Context, user models.User) (err error)
 	DeleteUser(ctx context.Context, user models.User) (err error)
 }
@@ -40,8 +40,8 @@ func (r *UserRepositoryImpl) GetUserByID(ctx context.Context, userID uint) (user
 	return
 }
 
-func (r *UserRepositoryImpl) GetUserByUsername(ctx context.Context, username string) (user *models.User, err error) {
-	err = r.db.Where("username = ?", username).Find(&user).Limit(1).WithContext(ctx).Error
+func (r *UserRepositoryImpl) GetUserByEmail(ctx context.Context, email string) (user *models.User, err error) {
+	err = r.db.Where("email = ?", email).Find(&user).Limit(1).WithContext(ctx).Error
 	if user.ID == 0 {
 		return nil, nil
 	}

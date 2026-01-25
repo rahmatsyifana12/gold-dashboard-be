@@ -21,7 +21,7 @@ type UserUseCase interface {
 }
 
 type UserUseCaseImpl struct {
-	repository	*repositories.Repository
+	repository *repositories.Repository
 }
 
 func NewUserUseCase(ioc di.Container) *UserUseCaseImpl {
@@ -31,12 +31,12 @@ func NewUserUseCase(ioc di.Container) *UserUseCaseImpl {
 }
 
 func (s *UserUseCaseImpl) CreateUser(ctx context.Context, params dtos.CreateUserRequest) (err error) {
-	user, err := s.repository.User.GetUserByUsername(ctx, params.Username)
+	user, err := s.repository.User.GetUserByEmail(ctx, params.Email)
 	if err != nil {
 		err = responses.NewError().
 			WithError(err).
 			WithCode(http.StatusInternalServerError).
-			WithMessage("Error while retrieving user by username from database")
+			WithMessage("Error while retrieving user by email from database")
 		return
 	}
 
@@ -44,7 +44,7 @@ func (s *UserUseCaseImpl) CreateUser(ctx context.Context, params dtos.CreateUser
 		err = responses.NewError().
 			WithError(err).
 			WithCode(http.StatusBadRequest).
-			WithMessage("Account with the same username already exists")
+			WithMessage("Account with the same email already exists")
 		return
 	}
 
@@ -59,10 +59,9 @@ func (s *UserUseCaseImpl) CreateUser(ctx context.Context, params dtos.CreateUser
 	}
 
 	newUser := models.User{
-		Username: params.Username,
+		Email:    params.Email,
 		Password: string(hashedPassword),
-		FullName: params.FullName,
-		PhoneNumber: params.PhoneNumber,
+		Name:     params.Name,
 	}
 
 	err = s.repository.User.CreateUser(ctx, newUser)
@@ -124,7 +123,7 @@ func (s *UserUseCaseImpl) UpdateUser(ctx context.Context, claims dtos.AuthClaims
 			WithMessage("Cannot find user with the given id")
 		return
 	}
-	
+
 	if user.ID != claims.UserID {
 		err = responses.NewError().
 			WithError(err).
@@ -132,9 +131,6 @@ func (s *UserUseCaseImpl) UpdateUser(ctx context.Context, claims dtos.AuthClaims
 			WithMessage("You are not authorized to update this user")
 		return
 	}
-
-	user.FullName = params.FullName
-	user.PhoneNumber = params.PhoneNumber
 
 	err = s.repository.User.UpdateUser(ctx, *user)
 	if err != nil {

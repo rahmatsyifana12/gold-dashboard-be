@@ -2,15 +2,16 @@ package main
 
 import (
 	"fmt"
-	"gold-dashboard-be/internal/logger"
 	"gold-dashboard-be/internal/apps/rest/middlewares"
+	"gold-dashboard-be/internal/logger"
+	"gold-dashboard-be/internal/pkg/validators"
 	"os"
 	"strings"
 
 	echo_middlewares "github.com/labstack/echo/v4/middleware"
 
-	"github.com/labstack/echo/v4"
 	"github.com/joho/godotenv"
+	"github.com/labstack/echo/v4"
 )
 
 func main() {
@@ -19,6 +20,9 @@ func main() {
 	}
 
 	e := echo.New()
+
+	// Initialize validator
+	e.Validator = validators.NewValidator()
 
 	if err := logger.SetupLogger(); err != nil {
 		panic("Failed to setup logger with error: " + err.Error())

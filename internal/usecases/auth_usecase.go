@@ -32,12 +32,12 @@ func NewAuthUseCase(ioc di.Container) *AuthUseCaseImpl {
 }
 
 func (s *AuthUseCaseImpl) Login(ctx context.Context, params dtos.LoginRequest) (res dtos.LoginResponse, err error) {
-	user, err := s.repository.User.GetUserByUsername(ctx, params.Username)
+	user, err := s.repository.User.GetUserByEmail(ctx, params.Email)
 	if err != nil {
 		err = responses.NewError().
 			WithError(err).
 			WithCode(http.StatusInternalServerError).
-			WithMessage("Error while retrieving user by username from database")
+			WithMessage("Error while retrieving user by email from database")
 		return
 	}
 
@@ -45,7 +45,7 @@ func (s *AuthUseCaseImpl) Login(ctx context.Context, params dtos.LoginRequest) (
 		err = responses.NewError().
 			WithError(err).
 			WithCode(http.StatusBadRequest).
-			WithMessage("Cannot find user with the given username")
+			WithMessage("Cannot find user with the given email")
 		return
 	}
 

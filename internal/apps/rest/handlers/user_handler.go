@@ -39,9 +39,17 @@ func (t *UserHandlerImpl) CreateUser(c echo.Context) (err error) {
 		err = responses.NewError().
 			WithError(err).
 			WithCode(http.StatusBadRequest).
-			WithMessage("Failed to bind parameters").
+			WithMessage(constants.ResponseMessageFailedToBindParameters).
 			SendErrorResponse(c)
 		return
+	}
+
+	if err = c.Validate(&params); err != nil {
+		return responses.NewError().
+			WithError(err).
+			WithCode(http.StatusBadRequest).
+			WithMessage("Validation error").
+			SendErrorResponse(c)
 	}
 
 	err = t.usecase.User.CreateUser(ctx, params)
@@ -63,7 +71,7 @@ func (t *UserHandlerImpl) GetUserByID(c echo.Context) error {
 		return responses.NewError().
 			WithCode(http.StatusBadRequest).
 			WithError(err).
-			WithMessage("Failed to bind parameters").
+			WithMessage(constants.ResponseMessageFailedToBindParameters).
 			SendErrorResponse(c)
 	}
 
@@ -72,7 +80,7 @@ func (t *UserHandlerImpl) GetUserByID(c echo.Context) error {
 		return responses.NewError().
 			WithError(err).
 			WithCode(http.StatusInternalServerError).
-			WithMessage("Failed to get auth claims")
+			WithMessage(constants.ResponseMessageFailedToGetAuthClaims)
 	}
 
 	data, err := t.usecase.User.GetUserByID(ctx, claims, params)
@@ -95,7 +103,7 @@ func (t *UserHandlerImpl) UpdateUser(c echo.Context) error {
 		return responses.NewError().
 			WithCode(http.StatusBadRequest).
 			WithError(err).
-			WithMessage("Failed to bind parameters").
+			WithMessage(constants.ResponseMessageFailedToBindParameters).
 			SendErrorResponse(c)
 	}
 
@@ -104,7 +112,7 @@ func (t *UserHandlerImpl) UpdateUser(c echo.Context) error {
 		return responses.NewError().
 			WithError(err).
 			WithCode(http.StatusInternalServerError).
-			WithMessage("Failed to get auth claims")
+			WithMessage(constants.ResponseMessageFailedToGetAuthClaims)
 	}
 
 	err = t.usecase.User.UpdateUser(ctx, claims, params)
@@ -126,7 +134,7 @@ func (t *UserHandlerImpl) DeleteUser(c echo.Context) error {
 		return responses.NewError().
 			WithCode(http.StatusBadRequest).
 			WithError(err).
-			WithMessage("Failed to bind parameters").
+			WithMessage(constants.ResponseMessageFailedToBindParameters).
 			SendErrorResponse(c)
 	}
 
@@ -135,7 +143,7 @@ func (t *UserHandlerImpl) DeleteUser(c echo.Context) error {
 		return responses.NewError().
 			WithError(err).
 			WithCode(http.StatusInternalServerError).
-			WithMessage("Failed to get auth claims")
+			WithMessage(constants.ResponseMessageFailedToGetAuthClaims)
 	}
 
 	err = t.usecase.User.DeleteUser(ctx, claims, params)
