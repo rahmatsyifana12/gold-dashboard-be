@@ -2,12 +2,12 @@ package usecases
 
 import (
 	"context"
-	"go-boilerplate/internal/constants"
-	"go-boilerplate/internal/dtos"
-	"go-boilerplate/internal/models"
-	"go-boilerplate/internal/pkg/responses"
-	"go-boilerplate/internal/pkg/utils"
-	"go-boilerplate/internal/repositories"
+	"gold-dashboard-be/internal/constants"
+	"gold-dashboard-be/internal/dtos"
+	"gold-dashboard-be/internal/models"
+	"gold-dashboard-be/internal/pkg/responses"
+	"gold-dashboard-be/internal/pkg/utils"
+	"gold-dashboard-be/internal/repositories"
 	"net/http"
 
 	"github.com/sarulabs/di"

@@ -1,7 +1,7 @@
 package repositories
 
 import (
-	"go-boilerplate/internal/constants"
+	"gold-dashboard-be/internal/constants"
 
 	"github.com/sarulabs/di"
 	"gorm.io/gorm"

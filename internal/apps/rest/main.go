@@ -2,8 +2,8 @@ package main
 
 import (
 	"fmt"
-	"go-boilerplate/internal/logger"
-	"go-boilerplate/internal/apps/rest/middlewares"
+	"gold-dashboard-be/internal/logger"
+	"gold-dashboard-be/internal/apps/rest/middlewares"
 	"os"
 	"strings"
 

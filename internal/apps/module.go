@@ -1,11 +1,11 @@
 package apps
 
 import (
-	"go-boilerplate/internal/apps/rest/handlers"
-	"go-boilerplate/internal/constants"
-	"go-boilerplate/internal/pkg/databases"
-	"go-boilerplate/internal/repositories"
-	"go-boilerplate/internal/usecases"
+	"gold-dashboard-be/internal/apps/rest/handlers"
+	"gold-dashboard-be/internal/constants"
+	"gold-dashboard-be/internal/pkg/databases"
+	"gold-dashboard-be/internal/repositories"
+	"gold-dashboard-be/internal/usecases"
 
 	"github.com/sarulabs/di"
 )

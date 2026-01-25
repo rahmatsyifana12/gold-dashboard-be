@@ -2,8 +2,8 @@ package helpers
 
 import (
 	"errors"
-	"go-boilerplate/internal/constants"
-	"go-boilerplate/internal/dtos"
+	"gold-dashboard-be/internal/constants"
+	"gold-dashboard-be/internal/dtos"
 	"os"
 
 	"github.com/golang-jwt/jwt/v5"

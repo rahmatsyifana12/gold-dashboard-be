@@ -1,7 +1,7 @@
 package responses
 
 import (
-	"go-boilerplate/internal/dtos"
+	"gold-dashboard-be/internal/dtos"
 	"net/http"
 	"reflect"
 

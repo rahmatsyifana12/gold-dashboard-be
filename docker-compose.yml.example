@@ -3,7 +3,7 @@ version: '3.8'
 services:
   app:
     build: .
-    container_name: go-boilerplate-app
+    container_name: gold-dashboard-be-app
     environment:
       - POSTGRES_HOST=${POSTGRES_HOST}
       - POSTGRES_PORT=${POSTGRES_PORT}

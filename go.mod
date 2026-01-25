@@ -1,4 +1,4 @@
-module go-boilerplate
+module gold-dashboard-be
 
 go 1.24
 

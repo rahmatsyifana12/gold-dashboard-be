@@ -2,7 +2,7 @@ package middlewares
 
 import (
 	"context"
-	"go-boilerplate/internal/constants"
+	"gold-dashboard-be/internal/constants"
 
 	"github.com/google/uuid"
 	"github.com/labstack/echo/v4"

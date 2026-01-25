@@ -1,11 +1,11 @@
 package handlers
 
 import (
-	"go-boilerplate/internal/constants"
-	"go-boilerplate/internal/dtos"
-	"go-boilerplate/internal/pkg/helpers"
-	"go-boilerplate/internal/pkg/responses"
-	"go-boilerplate/internal/usecases"
+	"gold-dashboard-be/internal/constants"
+	"gold-dashboard-be/internal/dtos"
+	"gold-dashboard-be/internal/pkg/helpers"
+	"gold-dashboard-be/internal/pkg/responses"
+	"gold-dashboard-be/internal/usecases"
 	"net/http"
 
 	"github.com/labstack/echo/v4"

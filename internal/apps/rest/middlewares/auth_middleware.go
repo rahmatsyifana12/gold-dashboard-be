@@ -1,9 +1,9 @@
 package middlewares
 
 import (
-	"go-boilerplate/internal/constants"
-	"go-boilerplate/internal/pkg/helpers"
-	"go-boilerplate/internal/pkg/responses"
+	"gold-dashboard-be/internal/constants"
+	"gold-dashboard-be/internal/pkg/helpers"
+	"gold-dashboard-be/internal/pkg/responses"
 	"net/http"
 	"strings"
 

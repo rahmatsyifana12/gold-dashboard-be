@@ -2,8 +2,8 @@ package repositories
 
 import (
 	"context"
-	"go-boilerplate/internal/constants"
-	"go-boilerplate/internal/models"
+	"gold-dashboard-be/internal/constants"
+	"gold-dashboard-be/internal/models"
 
 	"github.com/sarulabs/di"
 	"gorm.io/gorm"

@@ -2,11 +2,11 @@ package tests
 
 import (
 	"context"
-	"go-boilerplate/internal/dtos"
-	"go-boilerplate/internal/mock"
-	mock_repositories "go-boilerplate/internal/mock/repositories"
-	"go-boilerplate/internal/models"
-	"go-boilerplate/internal/usecases"
+	"gold-dashboard-be/internal/dtos"
+	"gold-dashboard-be/internal/mock"
+	mock_repositories "gold-dashboard-be/internal/mock/repositories"
+	"gold-dashboard-be/internal/models"
+	"gold-dashboard-be/internal/usecases"
 	"testing"
 
 	"github.com/golang/mock/gomock"

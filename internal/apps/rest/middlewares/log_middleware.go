@@ -3,8 +3,8 @@ package middlewares
 import (
 	"encoding/json"
 	"fmt"
-	"go-boilerplate/internal/constants"
-	"go-boilerplate/internal/pkg/helpers"
+	"gold-dashboard-be/internal/constants"
+	"gold-dashboard-be/internal/pkg/helpers"
 	"net/http"
 	"regexp"
 	"strings"

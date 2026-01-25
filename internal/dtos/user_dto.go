@@ -1,6 +1,6 @@
 package dtos
 
-import "go-boilerplate/internal/models"
+import "gold-dashboard-be/internal/models"
 
 type GetUserByIDResponse struct {
 	models.User

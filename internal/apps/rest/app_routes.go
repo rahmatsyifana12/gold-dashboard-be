@@ -1,9 +1,9 @@
 package main
 
 import (
-	"go-boilerplate/internal/apps/rest/handlers"
-	"go-boilerplate/internal/apps/rest/middlewares"
-	"go-boilerplate/internal/constants"
+	"gold-dashboard-be/internal/apps/rest/handlers"
+	"gold-dashboard-be/internal/apps/rest/middlewares"
+	"gold-dashboard-be/internal/constants"
 
 	"github.com/labstack/echo/v4"
 	"github.com/sarulabs/di"

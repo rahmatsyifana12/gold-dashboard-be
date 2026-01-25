@@ -23,8 +23,8 @@ A modular, production-ready Golang boilerplate application that supports local a
 ### 1. Clone the Repository
 
 ```bash
-git clone https://github.com/rahmatsyifana12/go-boilerplate.git
-cd go-boilerplate
+git clone https://github.com/rahmatsyifana12/gold-dashboard-be.git
+cd gold-dashboard-be
 ```
 
 ### 2. Create and Configure `.env`

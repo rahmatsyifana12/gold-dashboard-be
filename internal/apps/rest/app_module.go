@@ -1,7 +1,7 @@
 package main
 
 import (
-	"go-boilerplate/internal/apps"
+	"gold-dashboard-be/internal/apps"
 
 	"github.com/labstack/echo/v4"
 )

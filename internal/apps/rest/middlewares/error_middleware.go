@@ -1,7 +1,7 @@
 package middlewares
 
 import (
-	"go-boilerplate/internal/pkg/responses"
+	"gold-dashboard-be/internal/pkg/responses"
 	"net/http"
 
 	"github.com/labstack/echo/v4"

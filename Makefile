@@ -1,6 +1,6 @@
 -include .env
 
-APP_NAME := go-boilerplate
+APP_NAME := gold-dashboard-be
 MIGRATION_DIR := ./migrations
 
 DBMATE_URL := postgres://${POSTGRES_USERNAME}:${POSTGRES_PASSWORD}@${POSTGRES_HOST}:${POSTGRES_PORT}/${POSTGRES_DB_NAME}?sslmode=disable

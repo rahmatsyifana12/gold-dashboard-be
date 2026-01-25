@@ -1,7 +1,7 @@
 package logger
 
 import (
-	"go-boilerplate/internal/pkg/responses"
+	"gold-dashboard-be/internal/pkg/responses"
 	"io"
 	"os"
 

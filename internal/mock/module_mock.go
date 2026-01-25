@@ -1,8 +1,8 @@
 package mock
 
 import (
-	"go-boilerplate/internal/constants"
-	mock_repositories "go-boilerplate/internal/mock/repositories"
+	"gold-dashboard-be/internal/constants"
+	mock_repositories "gold-dashboard-be/internal/mock/repositories"
 
 	"github.com/golang/mock/gomock"
 	"github.com/sarulabs/di"

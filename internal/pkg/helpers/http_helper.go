@@ -2,7 +2,7 @@ package helpers
 
 import (
 	"bytes"
-	"go-boilerplate/internal/pkg/responses"
+	"gold-dashboard-be/internal/pkg/responses"
 	"io"
 	"net/http"
 )
