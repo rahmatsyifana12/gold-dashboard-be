@@ -10,5 +10,5 @@ CREATE TABLE gold_assets (
     buy_date DATE NOT NULL,
     sell_date DATE,
     created_at timestamp NOT NULL DEFAULT NOW(),
-    updated_at  NOT NULL DEFAULT NOW()
+    updated_at timestamp NOT NULL DEFAULT NOW()
 );
