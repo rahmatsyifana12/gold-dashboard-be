@@ -1,0 +1,1 @@
+DROP TYPE gold_brand;
