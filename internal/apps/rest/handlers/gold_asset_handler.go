@@ -14,6 +14,7 @@ import (
 
 type GoldAssetHandler interface {
 	CreateGoldAsset(c echo.Context) (err error)
+	GetUserGoldAssets(c echo.Context) (err error)
 }
 
 type GoldAssetHandlerImpl struct {
@@ -58,10 +59,32 @@ func (t *GoldAssetHandlerImpl) CreateGoldAsset(c echo.Context) (err error) {
 	}
 
 	err = t.usecase.GoldAsset.CreateGoldAsset(ctx, claims, params)
-
 	return responses.New().
 		WithError(err).
 		WithSuccessCode(http.StatusCreated).
 		WithMessage("Successfully created a new gold asset").
+		Send(c)
+}
+
+func (t *GoldAssetHandlerImpl) GetUserGoldAssets(c echo.Context) (err error) {
+	var (
+		ctx    = c.Request().Context()
+	)
+
+	claims, err := helpers.GetAuthClaims(c)
+	if err != nil {
+		return responses.NewError().
+			WithError(err).
+			WithCode(http.StatusInternalServerError).
+			WithMessage("Failed to get auth claims").
+			SendErrorResponse(c)
+	}
+
+	res, err := t.usecase.GoldAsset.GetUserGoldAssets(ctx, claims)
+	return responses.New().
+		WithError(err).
+		WithSuccessCode(http.StatusOK).
+		WithMessage("Successfully retrieved user gold assets").
+		WithData(res).
 		Send(c)
 }

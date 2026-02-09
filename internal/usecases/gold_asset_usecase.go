@@ -15,10 +15,11 @@ import (
 
 type GoldAssetUseCase interface {
 	CreateGoldAsset(ctx context.Context, claims dtos.AuthClaims, params dtos.CreateGoldAssetRequest) (err error)
+	GetUserGoldAssets(ctx context.Context, claims dtos.AuthClaims) (response dtos.GetUserGoldAssetsResponse, err error)
 }
 
 type GoldAssetUseCaseImpl struct {
-	repository	*repositories.Repository
+	repository *repositories.Repository
 }
 
 func NewGoldAssetUseCase(ioc di.Container) *GoldAssetUseCaseImpl {
@@ -38,13 +39,13 @@ func (u *GoldAssetUseCaseImpl) CreateGoldAsset(ctx context.Context, claims dtos.
 	}
 
 	newGoldAsset := models.GoldAsset{
-		UserID: claims.UserID,
-		Brand: params.Brand,
-		UnitGram: params.UnitGram,
+		UserID:        claims.UserID,
+		Brand:         params.Brand,
+		UnitGram:      params.UnitGram,
 		CertificateNo: params.CertificateNo,
-		Status: params.Status,
-		BoughtPrice: params.BoughtPrice,
-		BuyDate: buyDateTime,
+		Status:        params.Status,
+		BoughtPrice:   params.BoughtPrice,
+		BuyDate:       buyDateTime,
 	}
 
 	if params.Status == constants.StatusSold {
@@ -82,6 +83,40 @@ func (u *GoldAssetUseCaseImpl) CreateGoldAsset(ctx context.Context, claims dtos.
 			WithCode(http.StatusInternalServerError).
 			WithMessage("error while inserting gold asset into database")
 		return
+	}
+
+	return
+}
+
+func (u *GoldAssetUseCaseImpl) GetUserGoldAssets(ctx context.Context, claims dtos.AuthClaims) (response dtos.GetUserGoldAssetsResponse, err error) {
+	goldAssets, err := u.repository.GoldAsset.GetGoldAssetsByUserID(ctx, claims.UserID)
+	if err != nil {
+		err = responses.NewError().
+			WithError(err).
+			WithCode(http.StatusInternalServerError).
+			WithMessage("error while fetching gold assets from database")
+		return
+	}
+
+	for _, goldAsset := range goldAssets {
+		goldAssetRes := dtos.GetUserGoldAssetResponse{
+			ID:            goldAsset.ID,
+			Brand:         goldAsset.Brand,
+			UnitGram:      goldAsset.UnitGram,
+			CertificateNo: goldAsset.CertificateNo,
+			Status:        goldAsset.Status,
+			BoughtPrice:   goldAsset.BoughtPrice,
+			BuyDate:       goldAsset.BuyDate.Format("2006-01-02"),
+		}
+
+		if goldAsset.SoldPrice != nil {
+			goldAssetRes.SoldPrice = *goldAsset.SoldPrice
+		}
+		if goldAsset.SellDate != nil {
+			goldAssetRes.SellDate = goldAsset.SellDate.Format("2006-01-02")
+		}
+
+		response.GoldAssets = append(response.GoldAssets, goldAssetRes)
 	}
 
 	return

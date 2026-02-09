@@ -53,4 +53,5 @@ func (r *Route) Auth() {
 func (r *Route) GoldAsset() {
 	gold := r.router.Group("gold-assets")
 	gold.POST("", r.controller.GoldAsset.CreateGoldAsset, middlewares.AuthMiddleware)
+	gold.GET("", r.controller.GoldAsset.GetUserGoldAssets, middlewares.AuthMiddleware)
 }
