@@ -27,6 +27,7 @@ func (r *Route) Init() {
 	r.Ping()
 	r.Auth()
 	r.User()
+	r.GoldAsset()
 }
 
 func (r *Route) Ping() {
@@ -47,4 +48,9 @@ func (r *Route) Auth() {
 	auth := r.router.Group("auth")
 	auth.POST("/login", r.controller.Auth.Login)
 	// auth.POST("/logout", r.controller.Auth.Logout, middlewares.AuthMiddleware)
+}
+
+func (r *Route) GoldAsset() {
+	gold := r.router.Group("gold-assets")
+	gold.POST("", r.controller.GoldAsset.CreateGoldAsset, middlewares.AuthMiddleware)
 }

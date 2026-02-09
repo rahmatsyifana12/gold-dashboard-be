@@ -12,25 +12,24 @@ import (
 	"github.com/sarulabs/di"
 )
 
-type AuthHandler interface {
-	Login(c echo.Context) (err error)
-	Logout(c echo.Context) (err error)
+type GoldAssetHandler interface {
+	CreateGoldAsset(c echo.Context) (err error)
 }
 
-type AuthHandlerImpl struct {
+type GoldAssetHandlerImpl struct {
 	usecase *usecases.Usecase
 }
 
-func NewAuthHandler(ioc di.Container) AuthHandler {
-	return &AuthHandlerImpl{
+func NewGoldAssetHandler(ioc di.Container) GoldAssetHandler {
+	return &GoldAssetHandlerImpl{
 		usecase: ioc.Get(constants.Usecase).(*usecases.Usecase),
 	}
 }
 
-func (t *AuthHandlerImpl) Login(c echo.Context) (err error) {
+func (t *GoldAssetHandlerImpl) CreateGoldAsset(c echo.Context) (err error) {
 	var (
 		ctx    = c.Request().Context()
-		params dtos.LoginRequest
+		params dtos.CreateGoldAssetRequest
 	)
 
 	if err = c.Bind(&params); err != nil {
@@ -49,21 +48,7 @@ func (t *AuthHandlerImpl) Login(c echo.Context) (err error) {
 			SendErrorResponse(c)
 	}
 
-	res, err := t.usecase.Auth.Login(ctx, params)
-	return responses.New().
-		WithError(err).
-		WithSuccessCode(http.StatusOK).
-		WithMessage("Successfully logged in").
-		WithData(res).
-		Send(c)
-}
-
-func (t *AuthHandlerImpl) Logout(c echo.Context) (err error) {
-	var (
-		ctx = c.Request().Context()
-	)
-
-	authClaims, err := helpers.GetAuthClaims(c)
+	claims, err := helpers.GetAuthClaims(c)
 	if err != nil {
 		return responses.NewError().
 			WithError(err).
@@ -72,10 +57,11 @@ func (t *AuthHandlerImpl) Logout(c echo.Context) (err error) {
 			SendErrorResponse(c)
 	}
 
-	err = t.usecase.Auth.Logout(ctx, authClaims)
+	err = t.usecase.GoldAsset.CreateGoldAsset(ctx, claims, params)
+
 	return responses.New().
 		WithError(err).
-		WithSuccessCode(http.StatusOK).
-		WithMessage("Successfully logged out").
+		WithSuccessCode(http.StatusCreated).
+		WithMessage("Successfully created a new gold asset").
 		Send(c)
 }

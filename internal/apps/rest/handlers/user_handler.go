@@ -80,7 +80,8 @@ func (t *UserHandlerImpl) GetUserByID(c echo.Context) error {
 		return responses.NewError().
 			WithError(err).
 			WithCode(http.StatusInternalServerError).
-			WithMessage(constants.ResponseMessageFailedToGetAuthClaims)
+			WithMessage(constants.ResponseMessageFailedToGetAuthClaims).
+			SendErrorResponse(c)
 	}
 
 	data, err := t.usecase.User.GetUserByID(ctx, claims, params)
@@ -112,7 +113,8 @@ func (t *UserHandlerImpl) UpdateUser(c echo.Context) error {
 		return responses.NewError().
 			WithError(err).
 			WithCode(http.StatusInternalServerError).
-			WithMessage(constants.ResponseMessageFailedToGetAuthClaims)
+			WithMessage(constants.ResponseMessageFailedToGetAuthClaims).
+			SendErrorResponse(c)
 	}
 
 	err = t.usecase.User.UpdateUser(ctx, claims, params)
@@ -143,7 +145,8 @@ func (t *UserHandlerImpl) DeleteUser(c echo.Context) error {
 		return responses.NewError().
 			WithError(err).
 			WithCode(http.StatusInternalServerError).
-			WithMessage(constants.ResponseMessageFailedToGetAuthClaims)
+			WithMessage(constants.ResponseMessageFailedToGetAuthClaims).
+			SendErrorResponse(c)
 	}
 
 	err = t.usecase.User.DeleteUser(ctx, claims, params)

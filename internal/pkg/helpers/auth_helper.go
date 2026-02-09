@@ -2,6 +2,7 @@ package helpers
 
 import (
 	"errors"
+	"fmt"
 	"gold-dashboard-be/internal/constants"
 	"gold-dashboard-be/internal/dtos"
 	"os"
@@ -35,6 +36,7 @@ func ParseAndValidateJWT(token string) (claims dtos.AuthClaims, err error) {
 func GetAuthClaims(ctx echo.Context) (claims dtos.AuthClaims, err error) {
 	claims, ok := ctx.Get(constants.AuthClaimsKey).(dtos.AuthClaims)
 	if !ok {
+		fmt.Println("failed to cast context value to user's claims")
 		err = errors.New("failed to cast context value to user's claims")
 	}
 	return

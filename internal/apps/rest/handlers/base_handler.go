@@ -2,16 +2,18 @@ package handlers
 
 import "github.com/sarulabs/di"
 
-type Controller struct {	
-	User	UserHandler
-	Auth	AuthHandler
-	Todo	TodoHandler
+type Controller struct {
+	User      UserHandler
+	Auth      AuthHandler
+	Todo      TodoHandler
+	GoldAsset GoldAssetHandler
 }
 
 func NewController(ioc di.Container) *Controller {
 	return &Controller{
-		User: NewUserHandler(ioc),
-		Auth: NewAuthHandler(ioc),
-		Todo: NewTodoHandler(ioc),
+		User:      NewUserHandler(ioc),
+		Auth:      NewAuthHandler(ioc),
+		Todo:      NewTodoHandler(ioc),
+		GoldAsset: NewGoldAssetHandler(ioc),
 	}
 }
